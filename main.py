@@ -31,12 +31,11 @@ class DB:
             return new_words
 
 
-
-    # def add_user(self,  telegram_id, first_name, username):
-    #     with self.session() as s:
-    #         new_user = User(telegram_id = telegram_id, first_name=first_name, username=username)
-    #         s.add(new_user)
-    #         s.commit()
+    def add_user(self,  telegram_id, first_name, username):
+        with self.session() as s:
+            new_user = User(telegram_id = telegram_id, first_name=first_name, username=username)
+            s.add(new_user)
+            s.commit()
 
 
 

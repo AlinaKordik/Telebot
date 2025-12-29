@@ -50,18 +50,18 @@ def get_user_step(uid):
 @bot.message_handler(commands=['start_register'])
 def start_register(message):
     chat_id = message.chat.id
-    user_data[chat_id] = {} # Initialize user data
+    user_data[chat_id] = {}
     msg = bot.reply_to(message, 'Please provide your first_name:')
-    # Register the next step handler for the name input
+
     bot.register_next_step_handler(msg, process_name_step)
 
 def process_name_step(message):
     try:
         chat_id = message.chat.id
-        user_data[chat_id]['first_name'] = message.text # Store the first value
+        user_data[chat_id]['first_name'] = message.text
 
         msg = bot.reply_to(message, 'Please provide your age:')
-        # Register the next step handler for the age input
+
         bot.register_next_step_handler(msg, process_username_step)
     except Exception as e:
         bot.reply_to(message, 'Oops, something went wrong!')
@@ -71,11 +71,7 @@ def process_username_step(message):
         chat_id = message.chat.id
         username = int(message.text)
         first_name = user_data[chat_id]['first_name']
-
-
         new_user = User(first_name=first_name, username=username)
-
-
         db.add_russian_words(new_user)
 
         bot.reply_to(message, f'Successfully registered {first_name} who is {username} years old.')
